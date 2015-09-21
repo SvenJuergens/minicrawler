@@ -11,12 +11,12 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Mini Crawler',
-	'description' => 'A scheduler Task to crawl some URLS',
+	'title' => 'MiniCrawler',
+	'description' => 'A scheduler Task to crawl some URLs',
 	'category' => 'plugin',
 	'author' => 'Sven Jürgens',
 	'author_email' => 'typo3@blue-side.de',
-	'state' => 'alpha',
+	'state' => 'stable',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',

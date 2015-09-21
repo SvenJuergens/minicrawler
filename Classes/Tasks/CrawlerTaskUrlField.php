@@ -14,12 +14,13 @@ namespace SvenJuergens\Minicrawler\Tasks;
  * The TYPO3 project - inspiring people to share!
  */
 
-use \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
-use \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Core\Messaging\FlashMessage;
-use \TYPO3\CMS\Scheduler\Task\AbstractTask;
-use \SvenJuergens\Minicrawler\Tasks\CrawlerTask;
+use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
+use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+
+use SvenJuergens\Minicrawler\Tasks\CrawlerTask;
 
 /**
  * Original TASK taken from EXT:reports
@@ -54,15 +55,16 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface{
 		if ($schedulerModule->CMD == 'edit') {
 			$taskInfo[$this->fieldPrefix . 'UrlsToCrawl'] = $task->getUrlsToCrawl();
 		}
-			// build html for additional email field
+		// build html field for additional field
 		$fieldName = $this->getFullFieldName('urlsToCrawl');
 		$fieldId = 'task_' . $fieldName;
-		$fieldHtml = '<textarea ' . 'rows="10" cols="75" name="tx_scheduler[' . $fieldName . ']" ' . 'id="' . $fieldId . '" ' . '>' . htmlspecialchars($taskInfo[$fieldName]) . '</textarea>';
+		$placeholderText = $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.placeholderText');
+		$fieldHtml = '<textarea ' . 'rows="10" cols="75" placeholder="' . htmlspecialchars($placeholderText) . '" name="tx_scheduler[' . $fieldName . ']" ' . '>' . htmlspecialchars($taskInfo[$fieldName]) . '</textarea>';
 
 		$additionalFields = array();
 		$additionalFields[$fieldId] = array(
 			'code' => $fieldHtml,
-			'label' => 'urls To Crawl',
+			'label' => $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.fieldLabel'),
 			'cshKey' => '',
 			'cshLabel' => $fieldId
 		);
@@ -81,15 +83,14 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface{
 		$validInput = TRUE;
 		$urlsToCrawl = GeneralUtility::trimExplode(LF, $submittedData[$this->fieldPrefix . 'UrlsToCrawl'], TRUE);
 		foreach ($urlsToCrawl as $url) {
-			if ( !GeneralUtility::isValidUrl($url)
-				|| !GeneralUtility::isOnCurrentHost($url)
-				) {
+			if ( !GeneralUtility::isValidUrl($url) ) {
 				$validInput = FALSE;
 				break;
 			}
 		}
 		if (empty($submittedData[$this->fieldPrefix . 'UrlsToCrawl']) || !$validInput) {
-			$schedulerModule->addMessage('Mindestens eine der URLs ist ungültig', FlashMessage::ERROR);
+			$message = htmlspecialchars( $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.error.urlNotValid') );
+			$schedulerModule->addMessage($message, FlashMessage::ERROR);
 			$validInput = FALSE;
 		}
 		return $validInput;

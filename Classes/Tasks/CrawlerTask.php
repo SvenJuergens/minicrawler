@@ -15,8 +15,8 @@ namespace SvenJuergens\Minicrawler\Tasks;
  */
 
 
-use \TYPO3\CMS\Scheduler\Task\AbstractTask;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class CrawlerTask extends AbstractTask {
 
