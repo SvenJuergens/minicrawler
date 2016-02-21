@@ -59,7 +59,7 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface{
 		$fieldName = $this->getFullFieldName('urlsToCrawl');
 		$fieldId = 'task_' . $fieldName;
 		$placeholderText = $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.placeholderText');
-		$fieldHtml = '<textarea ' . 'rows="10" cols="75" placeholder="' . htmlspecialchars($placeholderText) . '" name="tx_scheduler[' . $fieldName . ']" ' . '>' . htmlspecialchars($taskInfo[$fieldName]) . '</textarea>';
+		$fieldHtml = '<textarea  class="form-control" rows="10" cols="75" placeholder="' . htmlspecialchars($placeholderText) . '" name="tx_scheduler[' . $fieldName . ']" ' . '>' . htmlspecialchars($taskInfo[$fieldName]) . '</textarea>';
 
 		$additionalFields = array();
 		$additionalFields[$fieldId] = array(
