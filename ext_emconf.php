@@ -10,25 +10,25 @@
  * "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
-	'title' => 'MiniCrawler',
-	'description' => 'A scheduler Task to crawl some URLs',
-	'category' => 'plugin',
-	'author' => 'Sven Jürgens',
-	'author_email' => 'typo3@blue-side.de',
-	'state' => 'stable',
-	'internal' => '',
-	'uploadfolder' => '0',
-	'createDirs' => '',
-	'clearCacheOnLoad' => 0,
-	'version' => '1.0.0',
-	'constraints' => array(
-		'depends' => array(
-			'typo3' => '6.2.0-7.6.99',
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
-		),
-	),
-);
+$EM_CONF[$_EXTKEY] = [
+    'title' => 'MiniCrawler',
+    'description' => 'A scheduler Task to crawl some URLs',
+    'category' => 'plugin',
+    'author' => 'Sven Jürgens',
+    'author_email' => 'typo3@blue-side.de',
+    'state' => 'stable',
+    'internal' => '',
+    'uploadfolder' => '0',
+    'createDirs' => '',
+    'clearCacheOnLoad' => 0,
+    'version' => '1.0.0',
+    'constraints' => [
+        'depends' => [
+            'typo3' => '9.5.0-9.5.99',
+        ],
+        'conflicts' => [
+        ],
+        'suggests' => [
+        ],
+    ],
+];

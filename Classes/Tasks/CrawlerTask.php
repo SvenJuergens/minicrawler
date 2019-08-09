@@ -13,49 +13,48 @@ namespace SvenJuergens\Minicrawler\Tasks;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-
-use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-class CrawlerTask extends AbstractTask {
+class CrawlerTask extends AbstractTask
+{
 
-	/**
-	 * URLs to crawl
-	 *
-	 * @var string
-	 */
-	protected $urlsToCrawl = NULL;
+    /**
+     * URLs to crawl
+     *
+     * @var string
+     */
+    protected $urlsToCrawl = null;
 
+    public function execute()
+    {
+        $urls = GeneralUtility::trimExplode(LF, $this->urlsToCrawl, true);
 
-	public function execute() {
-		$urls = GeneralUtility::trimExplode(LF, $this->urlsToCrawl, TRUE);
+        if (is_array($urls)) {
+            foreach ($urls as $key => $url) {
+                GeneralUtility::getUrl($url);
+            }
+        }
+        return true;
+    }
 
-		if(is_array($urls)){
-			foreach ($urls as $key => $url) {
-				GeneralUtility::getUrl($url);
-			}
-		}
-		return TRUE;
-	}
+    /**
+     * Gets the URLS to crawl.
+     *
+     * @return string URLS to crawl.
+     */
+    public function getUrlsToCrawl()
+    {
+        return $this->urlsToCrawl;
+    }
 
-	/**
-	 * Gets the URLS to crawl.
-	 *
-	 * @return string URLS to crawl.
-	 */
-	public function getUrlsToCrawl() {
-		return $this->urlsToCrawl;
-	}
-
-	/**
-	 * Sets the URLS to crawl.
-	 *
-	 * @param string $urlsToCrawl URLS to crawl.
-	 * @return void
-	 */
-	public function setUrlsToCrawl($urlsToCrawl) {
-		$this->urlsToCrawl = $urlsToCrawl;
-	}
-
+    /**
+     * Sets the URLS to crawl.
+     *
+     * @param string $urlsToCrawl URLS to crawl.
+     */
+    public function setUrlsToCrawl($urlsToCrawl)
+    {
+        $this->urlsToCrawl = $urlsToCrawl;
+    }
 }
