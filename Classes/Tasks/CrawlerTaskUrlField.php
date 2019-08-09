@@ -15,14 +15,15 @@ namespace SvenJuergens\Minicrawler\Tasks;
  */
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
+use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
+use TYPO3\CMS\Scheduler\Task\Enumeration\Action;
 
 /**
  * Original TASK taken from EXT:reports
  */
-class CrawlerTaskUrlField implements AdditionalFieldProviderInterface
+class CrawlerTaskUrlField extends AbstractAdditionalFieldProvider
 {
 
     /**
@@ -43,14 +44,15 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface
      * Gets additional fields to render in the form to add/edit a task
      *
      * @param array $taskInfo Values of the fields from the add/edit task form
-     * @param \TYPO3\CMS\Scheduler\Task\AbstractTask $task The task object being edited. Null when adding a task!
-     * @param \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule Reference to the scheduler backend module
+     * @param AbstractTask $task The task object being edited. Null when adding a task!
+     * @param SchedulerModuleController $schedulerModule Reference to the scheduler backend module
      * @return array A two dimensional array, array('Identifier' => array('fieldId' => array('code' => '', 'label' => '', 'cshKey' => '', 'cshLabel' => ''))
      */
     public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
     {
         $fields = ['urlsToCrawl' => 'textarea'];
-        if ($schedulerModule->CMD == 'edit') {
+        $currentSchedulerModuleAction = $currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
+        if ($currentSchedulerModuleAction === Action::EDIT) {
             $taskInfo[$this->fieldPrefix . 'UrlsToCrawl'] = $task->getUrlsToCrawl();
         }
         // build html field for additional field
@@ -74,7 +76,7 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface
      * Validates the additional fields' values
      *
      * @param array $submittedData An array containing the data submitted by the add/edit task form
-     * @param \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule Reference to the scheduler backend module
+     * @param SchedulerModuleController $schedulerModule Reference to the scheduler backend module
      * @return bool TRUE if validation was ok (or selected class is not relevant), FALSE otherwise
      */
     public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule)
@@ -89,7 +91,8 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface
         }
         if (empty($submittedData[$this->fieldPrefix . 'UrlsToCrawl']) || !$validInput) {
             $message = htmlspecialchars($GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.error.urlNotValid'));
-            $schedulerModule->addMessage($message, FlashMessage::ERROR);
+            //@extensionScannerIgnoreLine
+            $this->addMessage($message, FlashMessage::ERROR);
             $validInput = false;
         }
         return $validInput;
@@ -99,7 +102,7 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface
      * Takes care of saving the additional fields' values in the task's object
      *
      * @param array $submittedData An array containing the data submitted by the add/edit task form
-     * @param \TYPO3\CMS\Scheduler\Task\AbstractTask $task Reference to the scheduler backend module
+     * @param AbstractTask $task Reference to the scheduler backend module
      */
     public function saveAdditionalFields(array $submittedData, AbstractTask $task)
     {
@@ -115,7 +118,7 @@ class CrawlerTaskUrlField implements AdditionalFieldProviderInterface
      * @param string $fieldName A raw field name
      * @return string Field name ready to use in HTML markup
      */
-    protected function getFullFieldName($fieldName)
+    protected function getFullFieldName($fieldName): string
     {
         return $this->fieldPrefix . ucfirst($fieldName);
     }
