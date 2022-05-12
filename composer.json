@@ -1,0 +1,19 @@
+{
+   "name": "svenjuergens/minicrawler",
+   "type": "typo3-cms-extension",
+   "description": "An example extension",
+   "license": "GPL-2.0-or-later",
+   "require": {
+      "typo3/cms-core": "^9.5 || ^10.4 || ^11.5"
+   },
+   "autoload": {
+      "psr-4": {
+         "SvenJuergens\\Minicrawler\\": "Classes/"
+      }
+   },
+   "extra": {
+      "typo3/cms": {
+         "extension-key": "minicrawler"
+      }
+   }
+}
