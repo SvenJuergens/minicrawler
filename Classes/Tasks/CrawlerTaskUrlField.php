@@ -58,13 +58,13 @@ class CrawlerTaskUrlField extends AbstractAdditionalFieldProvider
         // build html field for additional field
         $fieldName = $this->getFullFieldName('urlsToCrawl');
         $fieldId = 'task_' . $fieldName;
-        $placeholderText = $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.placeholderText');
+        $placeholderText = $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/Resources/Private/Language/locallang.xlf:scheduler.placeholderText');
         $fieldHtml = '<textarea  class="form-control" rows="10" cols="75" placeholder="' . htmlspecialchars($placeholderText) . '" name="tx_scheduler[' . $fieldName . ']" ' . '>' . htmlspecialchars($taskInfo[$fieldName]) . '</textarea>';
 
         $additionalFields = [];
         $additionalFields[$fieldId] = [
             'code' => $fieldHtml,
-            'label' => $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.fieldLabel'),
+            'label' => $GLOBALS['LANG']->sL('LLL:EXT:minicrawler/Resources/Private/Language/locallang.xlf:scheduler.fieldLabel'),
             'cshKey' => '',
             'cshLabel' => $fieldId
         ];
@@ -90,7 +90,7 @@ class CrawlerTaskUrlField extends AbstractAdditionalFieldProvider
             }
         }
         if (empty($submittedData[$this->fieldPrefix . 'UrlsToCrawl']) || !$validInput) {
-            $message = htmlspecialchars($GLOBALS['LANG']->sL('LLL:EXT:minicrawler/locallang.xml:scheduler.error.urlNotValid'));
+            $message = htmlspecialchars($GLOBALS['LANG']->sL('LLL:EXT:minicrawler/Resources/Private/Language/locallang.xlf:scheduler.error.urlNotValid'));
             //@extensionScannerIgnoreLine
             $this->addMessage($message, FlashMessage::ERROR);
             $validInput = false;

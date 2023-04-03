@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2023-04-03T13:04:32Z" product-name="minicrawler">
+		<header/>
+		<body>
+			<trans-unit id="scheduler.placeholderText" xml:space="preserve" approved="yes">
+				<source>http://my-domain.abc/page1/</source>
+				<target>http://meineSeite.abc/seite1/</target>
+			</trans-unit>
+			<trans-unit id="scheduler.fieldLabel" xml:space="preserve" approved="yes">
+				<source>urls to crawl(one per line)</source>
+				<target>URLs zum crawlen (eine pro Zeile).</target>
+			</trans-unit>
+			<trans-unit id="scheduler.description" xml:space="preserve" approved="yes">
+				<source>crawls the saved urls</source>
+				<target>Ruft die hinterlegten URLs auf.</target>
+			</trans-unit>
+			<trans-unit id="error.urlNotValid" xml:space="preserve" approved="yes">
+				<source>min one of the urls is invalid</source>
+				<target>Mindestens eine der URLs ist ungültig</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
