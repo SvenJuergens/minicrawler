@@ -8,7 +8,7 @@ if (!defined('TYPO3_MODE')) {
  * Registering class to scheduler
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['SvenJuergens\\Minicrawler\\Tasks\\CrawlerTask'] = [
-    'extension' => $_EXTKEY,
+    'extension' => 'minicrawler',
     'title' => 'Mini Crawler',
     'description' => 'LLL:EXT:minicrawler/Resources/Private/Language/locallang.xlf:scheduler.description',
     'additionalFields' => 'SvenJuergens\\Minicrawler\\Tasks\\CrawlerTaskUrlField'
